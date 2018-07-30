@@ -29,7 +29,6 @@ module Kanri
     # Called when the Kanri module is included for the `#can?` instance
     # method mixin. Extends the other module to use the `Kanri::Roles`
     # singleton method mixin.
-    #
     # @see Kanri::InstanceMethods
     # @see Kanri::ClassMethods
     def self.included(othermod)
@@ -53,7 +52,6 @@ module Kanri
         # If the instance calling this method responds to the `#user` method,
         # and no  `user` is explicitly passed, the output of the `#user` method
         # will be used instead.
-        #
         # @api Authorization
         # @see Role#can?
         # @param action [Symbol] the action being performed
@@ -72,7 +70,6 @@ module Kanri
     # Singleton methods to be extended as a mixin
     module ClassMethods
         # Defines a new role
-        #
         # @api RoleDefinition
         # @see Role#initialize
         # @param name [Symbol] the name of the role
@@ -86,7 +83,6 @@ module Kanri
     end
 
     # Container for permissions
-    #
     # @api private
     class Permissions
         # @param actions [Symbol...] one or more actions to allow
@@ -99,7 +95,6 @@ module Kanri
         end
 
         # Checks if the given `action` is included in the permission
-        #
         # @param action [Symbol] the action being performed
         # @return [Boolean] whether the action is covered
         def has_action?(action)
@@ -108,7 +103,6 @@ module Kanri
 
         # Checks whether the specific permissions instance allows the user
         # to act on the target.
-        #
         # @see #initialize
         # @param user [Object] the user performing the action
         # @param target [Object] the target of the action
@@ -119,7 +113,6 @@ module Kanri
     end
 
     # Container for role permissions
-    #
     # @api private
     class Role
         # @return [Symbol] name of the role
@@ -147,7 +140,6 @@ module Kanri
         #      class.
         #   3. Check if any of the matching permissions allow the given
         #      user to act on the specific target object.
-        #
         # @param user [Object] the user performing the action
         # @param action [Symbol] the action being performed
         # @param target [Object] the target of the action
@@ -172,7 +164,6 @@ module Kanri
         #
         # Otherwise, it us considered a `user` and passed to the `@detect`
         # proc.
-        #
         # @param user [Object] the user performing the action
         # @param target [Object] the target of the action
         # @return [Boolean] whether the given user/target is considered a
@@ -183,12 +174,10 @@ module Kanri
     end
 
     # DSL for defining roles
-    #
     # @api private
     class RoleDSL
         class << self
             # Copies instance variables from the `dsl` to the `target`
-            #
             # @param dsl [RoleDSL] the DSL to convert
             # @param target [Object] the target of the conversion
             # @return [void]
@@ -208,7 +197,6 @@ module Kanri
         end
 
         # Sets the block used to determine members of the role.
-        #
         # @api RoleDefinition
         # @see Role#include?
         # @yieldparam user [Object] the user performing the action
@@ -219,7 +207,6 @@ module Kanri
         end
 
         # Adds a permission to the role.
-        #
         # @api RoleDefinition
         # @see Permissions#initialize
         # @param actions [Symbol...] one or more actions to allow
