@@ -24,50 +24,53 @@
 #   some_obj = SomeClass.new
 #   some_obj.can?(:edit, some_object, user: some_admin) # => true
 module Kanri
+    # Handle mixin inclusion
+    #
+    # Called when the Kanri module is included for the `#can?` instance
+    # method mixin. Extends the other module to use the `Kanri::Roles`
+    # singleton method mixin.
+    #
+    # @see Kanri::InstanceMethods
+    # @see Kanri::ClassMethods
+    def self.included(othermod)
+        othermod.include(InstanceMethods)
+        othermod.extend(ClassMethods)
+    end
+
     class << self
-        # All defined roles.
-        #
-        # @!attribute [r] roles
-        # @return [Array<Role>]
+        # @private
+        # @return [Array<Role>] all defined roles
         def roles
             @roles ||= []
         end
+    end
 
-        # Handle mixin inclusion
+    # Instance methods to be included as a mixin
+    module InstanceMethods
+        # Determines if an `action` can be performed on the given `target` by
+        # the `user`
         #
-        # Called when the Kanri module is included for the `#can?` instance
-        # method mixin. Extends the other module to use the `Kanri::Roles`
-        # singleton method mixin.
+        # If the instance calling this method responds to the `#user` method,
+        # and no  `user` is explicitly passed, the output of the `#user` method
+        # will be used instead.
         #
-        # @see Kanri::Roles
-        def included(othermod)
-            othermod.extend(Roles)
+        # @api Authorization
+        # @see Role#can?
+        # @param action [Symbol] the action being performed
+        # @param target [Object] the target of the action
+        # @param user [Object, nil] the user performing the action or nil for
+        #   delegated user determination
+        # @return [Type] description_of_returned_object
+        def can?(action, target, user: nil)
+            user ||= respond_to?(:user) ? self.user : nil
+            Kanri.roles
+                 .select { |role| role.include? user, target }
+                 .any? { |role| role.can? user, action, target }
         end
     end
 
-    # Determines if an `action` can be performed on the given `target` by the
-    # `user`
-    #
-    # If the instance calling this method responds to the `#user` method, and no
-    # `user` is explicitly passed, the output of the `#user` method will be used
-    # instead.
-    #
-    # @api Authorization
-    # @see Role#can?
-    # @param action [Symbol] the action being performed
-    # @param target [Object] the target of the action
-    # @param user [Object, nil] the user performing the action or nil for
-    #   delegated user determination
-    # @return [Type] description_of_returned_object
-    def can?(action, target, user: nil)
-        user ||= respond_to?(:user) ? self.user : nil
-        Kanri.roles
-             .select { |role| role.include? user, target }
-             .any? { |role| role.can? user, action, target }
-    end
-
     # Singleton methods to be extended as a mixin
-    module Roles
+    module ClassMethods
         # Defines a new role
         #
         # @api RoleDefinition
