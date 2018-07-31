@@ -1,0 +1,10 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+Layout/IndentationWidth:
+  Width: 4
+
+Naming/PredicateName:
+  NamePrefixBlacklist: is_, have_
