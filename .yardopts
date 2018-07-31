@@ -1,0 +1,12 @@
+--embed-mixins
+--private
+--protected
+--no-cache
+--markup markdown
+--charset utf-8
+--output-dir docs
+lib/**/*.rb
+-
+README.md
+CODE_OF_CONDUCT.md
+LICENSE.md

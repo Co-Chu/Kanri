@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.15
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Kanri">Kanri</h1>
+
+<p>Kanri (lit. management) is a minimalist authorization framework inspired by
+others such as Kan and Pundit. It aims to accomplish most basic
+authorization tasks in as simple a manner as possible, without sacrificing
+functionality.</p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<p>Add this line to your application&#39;s Gemfile:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kanri</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://github.com/Co-Chu/Kanri</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>Kanri authorizes actions based on roles defined in a class. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>SomeClass</span>
+    <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="Kanri.html" title="Kanri (module)">Kanri</a></span></span>
+
+    <span class='id identifier rubyid_role'>role</span> <span class='symbol'>:admin</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_admin?'>admin?</span> <span class='rbrace'>}</span>
+        <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:edit</span><span class='comma'>,</span> <span class='const'>Object</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_role'>role</span> <span class='symbol'>:anyone</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='const'>Object</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_some_obj'>some_obj</span> <span class='op'>=</span> <span class='const'>SomeClass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_some_obj'>some_obj</span><span class='period'>.</span><span class='id identifier rubyid_can?'>can?</span><span class='lparen'>(</span><span class='symbol'>:edit</span><span class='comma'>,</span> <span class='id identifier rubyid_some_object'>some_object</span><span class='comma'>,</span> <span class='label'>user:</span> <span class='id identifier rubyid_some_admin'>some_admin</span><span class='rparen'>)</span> <span class='comment'># =&gt; true
+</span></code></pre>
+
+<p>Role names are not currently used for anything in particular other than
+adding a readable tag to the permissions group.</p>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>Bug reports and pull requests are welcome at <a
+href="https://github.com/Co-Chu/Kanri">Kanri on GitHub</a>. This project is
+intended to be a safe, welcoming space for collaboration, and contributors
+are expected to adhere to the <a
+href="http://contributor-covenant.org">Contributor Covenant</a> code of
+conduct.</p>
+
+<h2 id="label-License">License</h2>
+
+<p>The gem is available as open source under the terms of the <a
+href="https://github.com/Co-Chu/Kanri/blob/master/LICENSE.md">MIT
+License</a>.</p>
+
+<h2 id="label-Code+of+Conduct">Code of Conduct</h2>
+
+<p>Everyone interacting in the Kanri project’s codebases, issue trackers, chat
+rooms and mailing lists is expected to follow the <a
+href="https://github.com/Co-Chu/Kanri/blob/master/CODE_OF_CONDUCT.md">code
+of conduct</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Tue Jul 31 00:21:42 2018 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.15 (ruby-2.4.4).
+</div>
+
+    </div>
+  </body>
+</html>
