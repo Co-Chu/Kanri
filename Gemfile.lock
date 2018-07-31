@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    Kanri (1.0.0)
+    kanri (1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -25,8 +25,8 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  Kanri!
   bundler (~> 1.16)
+  kanri!
   rspec (~> 3.0)
 
 BUNDLED WITH

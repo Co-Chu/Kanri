@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'kanri/version'
 
 Gem::Specification.new do |spec|
-    spec.name          = 'Kanri'
+    spec.name          = 'kanri'
     spec.version       = Kanri::VERSION
     spec.authors       = ['Matthew Lanigan']
     spec.email         = ['rintaun@gmail.com']
