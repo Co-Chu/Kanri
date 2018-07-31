@@ -40,7 +40,7 @@ module Kanri
         # @private
         # @return [Array<Role>] all defined roles
         def roles
-            @roles ||= []
+            @roles ||= Hash.new { |h, k| h[k] = [] }
         end
     end
 
@@ -61,7 +61,7 @@ module Kanri
         # @return [Type] description_of_returned_object
         def can?(action, target, user: nil)
             user ||= respond_to?(:user) ? self.user : nil
-            Kanri.roles
+            Kanri.roles[self.class]
                  .select { |role| role.include? user, target }
                  .any? { |role| role.can? user, action, target }
         end
@@ -78,7 +78,7 @@ module Kanri
         # @return [void]
         def role(name, &actions)
             role = Role.new(name, &actions)
-            Kanri.roles.push role
+            Kanri.roles[self].push role
         end
     end
 

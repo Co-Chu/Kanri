@@ -24,26 +24,23 @@ class Controller
     end
 
     attr_reader :user
+
+    role :admin do
+        detect { |user, _| user&.admin? }
+        can :edit, :delete, User
+    end
+
+    role :owner do
+        detect { |user, target| user&.id == target.id }
+        can :edit, User
+    end
+
+    role :anyone do
+        can :read, User
+    end
 end
 
 RSpec.describe Kanri do
-    before do
-        Kanri.roles.clear
-        Controller.role :admin do
-            detect { |user, _| user&.admin? }
-            can :edit, :delete, User
-        end
-
-        Controller.role :owner do
-            detect { |user, target| user&.id == target.id }
-            can :edit, User
-        end
-
-        Controller.role :anyone do
-            can :read, User
-        end
-    end
-
     let(:user) { User.new(1) }
     let(:other_user) { User.new(2) }
     let(:admin) { User.new(3, true) }
