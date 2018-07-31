@@ -38,7 +38,7 @@ module Kanri
 
     class << self
         # @private
-        # @return [Array<Role>] all defined roles
+        # @return [Hash{Class => Array<Role>}] all defined roles
         def roles
             @roles ||= Hash.new { |h, k| h[k] = [] }
         end
