@@ -82,6 +82,9 @@ module Kanri
             Kanri.roles[self].push role
         end
 
+        # Gets or sets the user method name
+        # @param name [Symbol] optional
+        # @return [Symbol] name of the method to use to get the user
         def user_method(name = nil)
             @user_method = name unless name.nil?
             @user_method ||= :user
