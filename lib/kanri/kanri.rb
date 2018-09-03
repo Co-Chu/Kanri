@@ -60,7 +60,8 @@ module Kanri
         #   delegated user determination
         # @return [Type] description_of_returned_object
         def can?(action, target, user: nil)
-            user ||= respond_to?(:user) ? self.user : nil
+            user_method = self.class.user_method
+            user ||= respond_to?(user_method) ? send(user_method) : nil
             Kanri.roles[self.class]
                  .select { |role| role.include? user, target }
                  .any? { |role| role.can? user, action, target }
@@ -79,6 +80,11 @@ module Kanri
         def role(name, &actions)
             role = Role.new(name, &actions)
             Kanri.roles[self].push role
+        end
+
+        def user_method(name = nil)
+            @user_method = name unless name.nil?
+            @user_method ||= :user
         end
     end
 
