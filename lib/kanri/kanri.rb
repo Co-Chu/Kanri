@@ -156,7 +156,7 @@ module Kanri
         # @return [Boolean] whether the `user` has permission to perform the
         #   `action` on the `target`
         def can?(user, action, target)
-            @permissions.select { |klass, _| target.is_a? klass }
+            @permissions.select { |cls, _| target.is_a?(cls) || target == cls }
                         .collect { |_, perms| perms }
                         .flatten
                         .select { |perm| perm.has_action? action }
