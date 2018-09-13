@@ -64,7 +64,6 @@ module Kanri
             user ||= respond_to?(user_method) ? send(user_method) : nil
             Kanri.roles[self.class]
                  .select { |role| role.can? user, action, target }
-                 .tap { |r| p r, user, action, target }
                  .any? { |role| role.include? user, target }
         end
     end
